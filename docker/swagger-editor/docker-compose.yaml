@@ -1,0 +1,11 @@
+# Author: Daniel Nicolas Gisolfi
+# Filename: docker-compose.yaml
+# Purpose: Running a local swagger editor
+# Usage: `docker-compose up -d`
+# 2019-6-13
+version: '2'
+services:
+  frontend:
+    image: swaggerapi/swagger-editor:latest
+    ports:
+     - "80:8080"

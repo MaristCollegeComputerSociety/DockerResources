@@ -1,0 +1,5 @@
+[servers]
+cb8a ansible_port=<YOUR-PORT> ansible_host=<YOUR-HOST>
+
+[servers:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'

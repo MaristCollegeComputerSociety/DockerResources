@@ -1,0 +1,37 @@
+FROM python:3.7
+LABEL maintainer="Daniel Nicolas Gisolfi"
+RUN apt-get update -y \
+    && apt-get install -y \
+        build-essential \
+        openssh-server \
+        sshpass \
+        sudo \
+        vim
+
+RUN mkdir -p /var/run/sshd
+
+# usage -- useradd -m -p $(openssl passwd -1 <PASSWORD>) <USERNAME>
+RUN useradd -m -p $(openssl passwd -1 Passw0rd!) ubuntu \
+    && usermod -s /bin/bash ubuntu \
+    && sudo adduser ubuntu sudo
+
+ADD .bashrc /home/ubuntu/.bashrc
+ADD .profile /home/ubuntu/.profile
+
+RUN python3 -m pip install \
+    ansible \
+    requests
+    
+WORKDIR /ansible
+
+ADD ansible.cfg .
+ADD hosts .
+
+RUN mkdir /etc/ansible \
+    && ln -s /ansible/ansible.cfg /etc/ansible/ansible.cfg \
+    && ln -s /ansible/hosts /etc/ansible/hosts \
+    && chown ubuntu:ubuntu -R /home/ubuntu
+
+USER root
+EXPOSE 8525
+CMD ["/usr/sbin/sshd", "-D"]

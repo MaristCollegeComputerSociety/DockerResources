@@ -1,0 +1,14 @@
+# Author: Daniel Nicolas Gisolfi
+# Filename: docker-compose.yaml
+# Usage: `docker-compose up -d`
+
+version: "2"
+services:
+  nginx:
+    build: .
+    container_name: reverse-proxy
+    ports: 
+      - "80:80"
+      - "443:443"
+    
+    

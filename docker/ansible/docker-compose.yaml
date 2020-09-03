@@ -1,0 +1,14 @@
+# Author: Daniel Nicolas Gisolfi
+# Filename: docker-compose.yaml
+# Purpose: for isolated development
+# Usage: `docker-compose up -d`
+
+version: '2'
+services:
+  ansible:
+    build: .
+    container_name: ansible-playground
+    ports:
+      - "22:22"
+    volumes: 
+      - .:/ansible
